@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetWindowTitle", "SetWindowTitle\SetWindowTitle.vcxproj", "{2142AE2B-0FB8-48DB-AF1E-1475B8D07315}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DailyRem", "DailyRem\DailyRem.vcxproj", "{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2142AE2B-0FB8-48DB-AF1E-1475B8D07315}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2142AE2B-0FB8-48DB-AF1E-1475B8D07315}.Debug|Win32.Build.0 = Debug|Win32
+		{2142AE2B-0FB8-48DB-AF1E-1475B8D07315}.Release|Win32.ActiveCfg = Release|Win32
+		{2142AE2B-0FB8-48DB-AF1E-1475B8D07315}.Release|Win32.Build.0 = Release|Win32
+		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Debug|Win32.Build.0 = Debug|Win32
+		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Release|Win32.ActiveCfg = Release|Win32
+		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -27,3 +27,13 @@
 *.exe
 *.out
 *.app
+/DailyRem/Debug
+/DailyRem/GeneratedFiles
+/SetWindowTitle/GeneratedFiles
+/SetWindowTitle/Debug
+/*.suo
+/*.sdf
+/Win32/Debug
+/ipch/dailyrem-a66e777f/*.ipch
+/ipch
+/SetWindowTitle/*.user
