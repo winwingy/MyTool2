@@ -1,7 +1,9 @@
+#include "stdafx.h"
 #include "dailyrem.h"
 #include <QFileDialog>
 #include <QRect>
 #include <qDebug>
+#include "dailyRemMask.h"
 
 DailyRem::DailyRem(QWidget *parent)
 	: QMainWindow(parent)
@@ -28,22 +30,15 @@ QRect getAdjustRectByWidth(const QRect& rect, int width, int maxWidth)
 
 void DailyRem::connection()
 {
-	connect(ui.action_open, &QAction::triggered, [&]()
-	{
-// 		const QString& strPath = QFileDialog::getOpenFileName(
-// 			this,QObject::tr("Select File"),
-// 			QLatin1String("//"),QString("DLR(*.dlr)"));
-// 		if( strPath.isEmpty() )
-// 			return;
-		//QTextEdit *textEdit
-		QRect rect = ui.textEdit->cursorRect();
-		QRect rectAdjust = getAdjustRectByWidth(rect, 100, ui.textEdit->width());
-		qDebug() << rectAdjust;
 
-	});
 }
 
 DailyRem::~DailyRem()
 {
 
+}
+
+void DailyRem::init()
+{
+	ui.m_dailyEdit->setMaskText(QString());
 }

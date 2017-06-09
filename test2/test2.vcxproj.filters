@@ -24,80 +24,47 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{48515f60-3026-4a68-9e7a-19e61e92e3b4}</UniqueIdentifier>
+      <UniqueIdentifier>{eb7cc6ec-5e99-48d1-a942-8eff0fcfc0cf}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{a4fc62b2-032b-45d1-b689-49559fcea155}</UniqueIdentifier>
+      <UniqueIdentifier>{b1b4d2c6-e25b-4325-bf0b-271f5870656e}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{ca319359-894e-4844-96e7-323e46c94412}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_dailyrem.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_dailyrem.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="test2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DailyEdit.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="dailyrem.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="dailyremUi.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_DailyEdit.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_test2.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_DailyEdit.cpp">
+    <ClCompile Include="GeneratedFiles\Release\moc_test2.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_TextEditMask.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_TextEditMask.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="TextEditMask.cpp">
-      <Filter>main</Filter>
+    <ClCompile Include="GeneratedFiles\qrc_test2.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="dailyrem.ui">
+    <CustomBuild Include="test2.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="test2.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="dailyrem.qrc">
+    <CustomBuild Include="test2.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="dailyremUi.h">
-      <Filter>main</Filter>
-    </CustomBuild>
-    <CustomBuild Include="dailyrem.h">
-      <Filter>main</Filter>
-    </CustomBuild>
-    <CustomBuild Include="DailyEdit.h">
-      <Filter>main</Filter>
-    </CustomBuild>
-    <CustomBuild Include="TextEditMask.h">
-      <Filter>main</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GeneratedFiles\ui_test2.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

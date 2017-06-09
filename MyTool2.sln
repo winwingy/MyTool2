@@ -5,6 +5,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SetWindowTitle", "SetWindow
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DailyRem", "DailyRem\DailyRem.vcxproj", "{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{FC19F581-5120-44DF-95D2-954DB1A2E1CA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test2", "test2\test2.vcxproj", "{DAA02FA1-36EF-4809-8290-A9B336B6F9EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +23,14 @@ Global
 		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Debug|Win32.Build.0 = Debug|Win32
 		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Release|Win32.ActiveCfg = Release|Win32
 		{85B1567A-18BE-4E0B-8020-A9AAB50C23D1}.Release|Win32.Build.0 = Release|Win32
+		{FC19F581-5120-44DF-95D2-954DB1A2E1CA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC19F581-5120-44DF-95D2-954DB1A2E1CA}.Debug|Win32.Build.0 = Debug|Win32
+		{FC19F581-5120-44DF-95D2-954DB1A2E1CA}.Release|Win32.ActiveCfg = Release|Win32
+		{FC19F581-5120-44DF-95D2-954DB1A2E1CA}.Release|Win32.Build.0 = Release|Win32
+		{DAA02FA1-36EF-4809-8290-A9B336B6F9EF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DAA02FA1-36EF-4809-8290-A9B336B6F9EF}.Debug|Win32.Build.0 = Debug|Win32
+		{DAA02FA1-36EF-4809-8290-A9B336B6F9EF}.Release|Win32.ActiveCfg = Release|Win32
+		{DAA02FA1-36EF-4809-8290-A9B336B6F9EF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,3 +37,9 @@
 /ipch/dailyrem-a66e777f/*.ipch
 /ipch
 /SetWindowTitle/*.user
+/test/Debug
+/Debug
+/test2/Debug
+/test2/*.user
+/*.opensdf
+/test/*.user

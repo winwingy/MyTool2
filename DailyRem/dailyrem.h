@@ -2,7 +2,8 @@
 #define DAILYREM_H
 
 #include <QtWidgets/QMainWindow>
-#include "ui_dailyrem.h"
+#include "dailyremUi.h"
+class DailyRemMask;
 
 class DailyRem : public QMainWindow
 {
@@ -11,10 +12,12 @@ class DailyRem : public QMainWindow
 public:
 	DailyRem(QWidget *parent = 0);
 	~DailyRem();
+	void init();
 
 private:
+	
 	void connection();
-	Ui::DailyRemClass ui;
+	DailyRemUi ui;
 };
 
 #endif // DAILYREM_H

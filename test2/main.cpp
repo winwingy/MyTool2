@@ -1,11 +1,10 @@
-#include "dailyrem.h"
+#include "test2.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	DailyRem w;
-	w.init();
+	test2 w;
 	w.show();
 	return a.exec();
 }
