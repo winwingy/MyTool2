@@ -22,9 +22,9 @@ void ImageMask::setClearArea(const QRect& clearArea)
 
 void ImageMask::paintEvent(QPaintEvent *e)
 {
-	QPainter pter(this);
-	pter.drawPixmap(rect(), m_pixmap);
-	pter.setCompositionMode(QPainter::CompositionMode_SourceOut);
-	pter.setPen(Qt::NoPen);
-	pter.drawRect(m_clearArea);
+// 	QPainter pter(this);
+// 	pter.drawPixmap(rect(), m_pixmap);
+// 	pter.setCompositionMode(QPainter::CompositionMode_SourceOut);
+// 	pter.setPen(Qt::NoPen);
+// 	pter.drawRect(m_clearArea);
 }

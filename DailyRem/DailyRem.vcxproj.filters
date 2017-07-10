@@ -74,6 +74,15 @@
     <ClCompile Include="TextEditMask.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="ImageMask.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ImageMask.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ImageMask.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dailyrem.ui">
@@ -92,6 +101,9 @@
       <Filter>main</Filter>
     </CustomBuild>
     <CustomBuild Include="TextEditMask.h">
+      <Filter>main</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ImageMask.h">
       <Filter>main</Filter>
     </CustomBuild>
   </ItemGroup>

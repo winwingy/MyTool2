@@ -3,6 +3,7 @@
 #include <QResizeEvent>
 class TextEditMask;
 class QLabel;
+class ImageMask;
 
 class DailyEdit : public QTextEdit
 {
@@ -22,8 +23,8 @@ protected:
 private:
 	void initialize();
 	void connection();
-
+	void ColorCursorText();
 	TextEditMask* m_textMask;
-	QLabel* m_maskCover;
+	ImageMask* m_imageMask;
 };
 

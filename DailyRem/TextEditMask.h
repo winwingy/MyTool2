@@ -6,7 +6,9 @@ class TextEditMask : public QTextEdit
 public:
 	TextEditMask(QWidget* par);
 	~TextEditMask(void);
-	void setClearArea(const QRect& rc);
+	void setClearArea(const QRect& rc);	
+	void ColorTextCharFormat(const QString& search_text);
+	void ColorTextByLine(int lineNumber);
 
 signals:
 	void signalFocusIn();

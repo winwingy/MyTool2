@@ -25,5 +25,6 @@ int main() {
 	test_function(std::bind(foo, std::ref(a)));
 	std::cout << "a = " << a << "\n";
 
+	system("pause");
 	return 0;
 }
