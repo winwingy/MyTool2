@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flyAnimation", "flyAnimatio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test4", "test4\test4.vcxproj", "{8FFA7E1C-0ACB-4272-9B9E-91DAF2C1A08C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DailyRem2", "DailyRem2\DailyRem2.vcxproj", "{488CAB6A-9420-4772-80D5-689876EAFBA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -49,6 +51,10 @@ Global
 		{8FFA7E1C-0ACB-4272-9B9E-91DAF2C1A08C}.Debug|Win32.Build.0 = Debug|Win32
 		{8FFA7E1C-0ACB-4272-9B9E-91DAF2C1A08C}.Release|Win32.ActiveCfg = Release|Win32
 		{8FFA7E1C-0ACB-4272-9B9E-91DAF2C1A08C}.Release|Win32.Build.0 = Release|Win32
+		{488CAB6A-9420-4772-80D5-689876EAFBA1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{488CAB6A-9420-4772-80D5-689876EAFBA1}.Debug|Win32.Build.0 = Debug|Win32
+		{488CAB6A-9420-4772-80D5-689876EAFBA1}.Release|Win32.ActiveCfg = Release|Win32
+		{488CAB6A-9420-4772-80D5-689876EAFBA1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@
 
 DailyEdit::DailyEdit(void)
 	: m_textMask(new TextEditMask(this))
-	, m_imageMask(new ImageMask(this))
+	//, m_imageMask(new ImageMask(this))
 {
 	initialize();
 	connection();
@@ -87,5 +87,5 @@ void DailyEdit::setMaskText(const QString& text)
 	std::wstring text1(L"ABC我们者地要人的我工工");
 	text1 += text1 += text1 += text1 += text1 += text1;
 	m_textMask->setText(QString::fromStdWString(text1));
-	m_textMask->ColorTextCharFormat(QString::fromStdWString(L"ABC"));
+	//m_textMask->ColorTextCharFormat(QString::fromStdWString(L"ABC"));
 }

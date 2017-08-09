@@ -12,6 +12,7 @@ public:
 	DailyEdit(void);
 	~DailyEdit(void);
 	void setMaskText(const QString& text);
+	void setMaskLevel(int level);
 
 public slots:
 	void OnCursorPositionChanged();
@@ -25,6 +26,7 @@ private:
 	void connection();
 	void ColorCursorText();
 	TextEditMask* m_textMask;
-	ImageMask* m_imageMask;
+
+	//ImageMask* m_imageMask;
 };
 

@@ -7,10 +7,16 @@ TextEditMask::TextEditMask(QWidget* par)
 {
 	//setFocusPolicy(Qt::NoFocus);
 // 
-	QPalette pal;
-	pal.setColor(QPalette::Base, QColor(255, 0, 0, 0));
-	pal.setColor(QPalette::HighlightedText, QColor(0, 255, 0, 50));
-	this->setPalette(pal);
+// 	QPalette pal;
+// 	pal.setColor(QPalette::Base, QColor(255, 0, 0, 0));
+// 	pal.setColor(QPalette::HighlightedText, QColor(0, 255, 0, 50));
+// 	this->setPalette(pal);
+
+	QPalette pl = palette();
+
+	pl.setBrush(QPalette::Base,QBrush(QColor(255,0,0,0)));
+
+	setPalette(pl);
 	this->setStyleSheet("QTextEdit{border: none;}");
 	
 }
@@ -85,47 +91,57 @@ void TextEditMask::setClearArea(const QRect& rc)
 	update();
 }
 
+
 void TextEditMask::ColorTextByLine(int lineNumber)
 {
-	QTextDocument*textDocument= document();//获取指定textEdit位置
+	QTextDocument* textDocument= document();//获取指定textEdit位置
 	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
-	textBlock.set
 	
+	QTextCursor cursor(textBlock);
 
-	QTextCursor qq;
-	QString selectLine = textBlock.text();//将得到的数据存入一个字符串。
-	m_textMask->ColorTextByLine(lineNumber);
-
-	cursor.select()
-
-
-	cursor.setPosition(blocks[idx].position());
-	int pos = blocks[idx].position() + line.textStart() + line.textLength() - 1;
-	cursor.setPosition(pos,  QTextCursor::KeepAnchor);
-	QTextCharFormat fmt;
-	fmt.setFontLetterSpacing(percentOfSpacing);
-	cursor.mergeCharFormat(fmt);
-
-
-
-	QTextCursor highlight_cursor(documentPtr);
-	QTextCursor cursor(documentPtr);
-
-	//开始
-	cursor.beginEditBlock();
-
+	QTextCursor highlight_cursor(textDocument);
 	QTextCharFormat color_format(highlight_cursor.charFormat());
-	color_format.setForeground(Qt::red);
-	while (!highlight_cursor.isNull() && !highlight_cursor.atEnd()) {
+	color_format.setForeground(Qt::green);
 
-		//查找指定的文本，匹配整个单词
-		highlight_cursor = documentPtr->find(search_text, 
-			highlight_cursor, QTextDocument::FindCaseSensitively);
-		if (!highlight_cursor.isNull()) {
-			if(!found)
-				found = true;
-			highlight_cursor.mergeCharFormat(color_format);
-		}
-	}
-	cursor.endEditBlock();
+	cursor.mergeCharFormat(color_format);
 }
+
+// void TextEditMask::ColorTextByLine(int lineNumber)
+// {
+//    	QTextDocument*textDocument= document();//获取指定textEdit位置
+//    	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
+//    	//textBlock.
+//    	
+//   
+//    
+//    
+//    	cursor.setPosition(blocks[idx].position());
+//    	int pos = blocks[idx].position() + line.textStart() + line.textLength() - 1;
+//    	cursor.setPosition(pos,  QTextCursor::KeepAnchor);
+//    	QTextCharFormat fmt;
+//    	fmt.setFontLetterSpacing(percentOfSpacing);
+//    	cursor.mergeCharFormat(fmt);
+//    
+//    
+//    
+//    	QTextCursor highlight_cursor(documentPtr);
+//    	QTextCursor cursor(documentPtr);
+//    
+//    	//开始
+//    	cursor.beginEditBlock();
+//    
+//    	QTextCharFormat color_format(highlight_cursor.charFormat());
+//    	color_format.setForeground(Qt::red);
+//    	while (!highlight_cursor.isNull() && !highlight_cursor.atEnd()) {
+//    
+//    		//查找指定的文本，匹配整个单词
+//    		highlight_cursor = documentPtr->find(search_text, 
+//    			highlight_cursor, QTextDocument::FindCaseSensitively);
+//    		if (!highlight_cursor.isNull()) {
+//    			if(!found)
+//    				found = true;
+//    			highlight_cursor.mergeCharFormat(color_format);
+//    		}
+//    	}
+//    	cursor.endEditBlock();
+// }
