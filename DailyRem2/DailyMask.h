@@ -11,6 +11,7 @@ public:
 	};
 	DailyMask(QWidget* par);
 	~DailyMask(void);
+
 	void ColorTextByLine(int lineNumber, int columnNumber);
 	void setMaskLevel(Level_mask level);
 

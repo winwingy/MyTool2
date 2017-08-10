@@ -4,9 +4,13 @@
 class DailyMask;
 class DailyEdit : public QTextEdit
 {
+	Q_OBJECT
 public:
 	DailyEdit(QWidget* par);
 	~DailyEdit(void);
+
+signals:
+	void cursorPositionChangedEx(int row, int column);
 
 protected:
 	virtual void resizeEvent(QResizeEvent * ev) override;
@@ -22,7 +26,8 @@ private:
 	void test();
 	int getCursorLine(int* columnNumber);
 	void onHotKey(QKeyEvent *e);
-	void onCursorPositionChanged();
+	void onCursorPositionChanged(int* row, int* column);
+	int getCursorLine2(int* column);
 	DailyMask* m_mask;
 };
 

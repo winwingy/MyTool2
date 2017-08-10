@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DailyEdit.h"
 #include "DailyMask.h"
 #include "qboxlayout.h"
@@ -14,7 +15,7 @@ DailyEdit::DailyEdit(QWidget* par)
 {
 	initialize();
 	connection();
-	test();
+	//test();
 }
 
 DailyEdit::~DailyEdit(void)
@@ -27,36 +28,79 @@ void DailyEdit::resizeEvent(QResizeEvent * ev)
 	__super::resizeEvent(ev);
 }
 
+void getFileSteam(const QString& filePath, QString* fileStream)
+{
+	FILE* fp = nullptr;
+	_tfopen_s(&fp, filePath.toStdWString().c_str(), _T("rb"));
+	fseek(fp, 0, SEEK_END);
+	int size = ftell(fp);
+	fileStream->resize(size);
+	fseek(fp, 0, SEEK_SET);
+	int readed = fread((char*)fileStream->data(), 1, size, fp);
+	*fileStream = QString::fromLocal8Bit((char*)fileStream->data(), readed);
+	fclose(fp);
+}
+
 void DailyEdit::initialize()
 {
-	QPalette pl = this->palette();
-
-	pl.setBrush(QPalette::Base,QBrush(QColor(0,125,0,125)));
-
-	this->setPalette(pl);
+// 	QPalette pl = this->palette();
+// 	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 125)));
+// 
+// 	this->setPalette(pl);
 	QHBoxLayout* layout = new QHBoxLayout(this);
 	layout->setMargin(0);
 	layout->addWidget(m_mask);
+
+	QString fileStream;
+	getFileSteam("mask.txt", &fileStream);
+	if (fileStream.isEmpty())
+	{
+		getFileSteam("..\\DailyRem2\\mask.txt", &fileStream);
+	}
+	fileStream.replace("\r\n", "\0");
+	fileStream.replace(" ", "\0");
+	fileStream.replace("	", "\0");
+	fileStream.replace(QRegExp("[a-zA-Z]"), "\0");
+	fileStream.replace(QRegExp("[0-9]"), "\0");
+	for (int i = 1; i < 50; ++i)
+	{
+		fileStream.insert(i*80, "\r\n");
+	}
+	m_mask->setText(fileStream);
+
 }
+
+
 
 void DailyEdit::connection()
 {
 	QObject::connect(this, &QTextEdit::cursorPositionChanged, [&]()
 	{
-		onCursorPositionChanged();
+		int row = 0;
+		int column = 0;
+		onCursorPositionChanged(&row, &column);
+		emit cursorPositionChangedEx(row, column);
 	});
 }
 
-void DailyEdit::onCursorPositionChanged()
+// void DailyEdit::onCursorPositionChanged(int* row, int* column)
+// {
+// 	//当前光标
+// 	QTextCursor tc = this->textCursor(); 
+// 	QTextLayout *pLayout = tc.block().layout();
+// 	//当前光标在本BLOCK内的相对位置
+// 	int nCurpos = tc.position() - tc.block().position();
+// 	int nTextline = pLayout->lineForTextPosition(nCurpos).lineNumber() +
+// 		tc.block().firstLineNumber();
+// 	//<<"nTextline=" << nTextline<<endl;           //可以看到行号随着光标的改变而改变
+// 	*row = nTextline;
+// 	*column = nCurpos;
+// }
+
+void DailyEdit::onCursorPositionChanged(int* row, int* column)
 {
-	//当前光标
-	QTextCursor tc = this->textCursor(); 
-	QTextLayout *pLayout = tc.block().layout();
-	//当前光标在本BLOCK内的相对位置
-	int nCurpos = tc.position() - tc.block().position();
-	int nTextline = pLayout->lineForTextPosition(nCurpos).lineNumber() +
-		tc.block().firstLineNumber();
-	qDebug()<<"nTextline=" << nTextline<<endl;           //可以看到行号随着光标的改变而改变
+	*row = getCursorLine2(column);
+	m_mask->ColorTextByLine(*row, *column);
 }
 
 void DailyEdit::test()
@@ -70,6 +114,7 @@ void DailyEdit::test()
 
 void DailyEdit::onHotKey(QKeyEvent *e)
 {
+	bool isChange = false;
 	if (e->modifiers() == Qt::ControlModifier)
 	{
 		switch(e->key())
@@ -77,19 +122,29 @@ void DailyEdit::onHotKey(QKeyEvent *e)
 		case Qt::Key_F:
 			{
 				m_mask->setMaskLevel(DailyMask::Level_mask_threeLine);
+				isChange = true;
 				break;
 			}
 		case Qt::Key_G:
 			{
 				m_mask->setMaskLevel(DailyMask::Level_mask_line);
+				isChange = true;
 				break;
 			}
 		case Qt::Key_E:
 			{
 				m_mask->setMaskLevel(DailyMask::Level_mask_clear);
+				isChange = true;
 				break;
 			}
 		}
+	}
+	if (isChange)
+	{
+		int columnNumber = 0;
+		int lineNumber = getCursorLine(&columnNumber);
+		// << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
+		m_mask->ColorTextByLine(lineNumber, columnNumber);
 	}
 }
 
@@ -99,16 +154,10 @@ void DailyEdit::keyPressEvent(QKeyEvent *e)
 	onHotKey(e);
 
 	__super::keyPressEvent(e);
-	static QTimer* timer = new QTimer(this);
-	timer->setInterval(1);
-	timer->setSingleShot(true);
-	QObject::connect(timer, &QTimer::timeout, [&](){
-		int columnNumber = 0;
-		int lineNumber = getCursorLine(&columnNumber);
-		qDebug() << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
-		m_mask->ColorTextByLine(lineNumber, columnNumber);
-	});
-	timer->start();
+// 	int columnNumber = 0;
+// 	int lineNumber = getCursorLine(&columnNumber);
+// 	// << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
+// 	m_mask->ColorTextByLine(lineNumber, columnNumber);
 }
 
 
@@ -129,24 +178,31 @@ int DailyEdit::getCursorLine(int* column)
 	return lineNumber;
 }
 
+
+int DailyEdit::getCursorLine2(int* column)
+{
+	QTextCursor tc = this->textCursor(); 
+	QTextLayout *pLayout = tc.block().layout();
+	int nCurpos = tc.position() - tc.block().position();
+	int nTextline = pLayout->lineForTextPosition(nCurpos).lineNumber() +
+	 	tc.block().firstLineNumber();
+	*column = nCurpos;
+	return nTextline;
+}
+
+
 void DailyEdit::focusInEvent(QFocusEvent *e)
 {
 	__super::focusInEvent(e);
 // 	int lineNumber = getCursorLine();
-// 	qDebug() << "lineNumber=" << lineNumber;
+// 	// << "lineNumber=" << lineNumber;
 }
 
 void DailyEdit::mousePressEvent(QMouseEvent *e)
 {
-	__super::mousePressEvent(e);
-	static QTimer* timer = new QTimer(this);
-	timer->setInterval(1);
-	timer->setSingleShot(true);
-	QObject::connect(timer, &QTimer::timeout, [&](){
-		int columnNumber = 0;
-		int lineNumber = getCursorLine(&columnNumber);
-		qDebug() << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
-		m_mask->ColorTextByLine(lineNumber, columnNumber);
-	});
-	timer->start();
+	__super::mousePressEvent(e);	
+// 	int columnNumber = 0;
+// 	int lineNumber = getCursorLine(&columnNumber);
+// 	// << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
+// 	m_mask->ColorTextByLine(lineNumber, columnNumber);
 }

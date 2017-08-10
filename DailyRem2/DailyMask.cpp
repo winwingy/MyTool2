@@ -1,7 +1,10 @@
+#include "stdafx.h"
 #include "DailyMask.h"
 #include "qcoreevent.h"
 #include "qDebug"
 #include "qtextobject.h"
+#include "tool\config.h"
+#include "DailyType.h"
 
 DailyMask::DailyMask(QWidget* par)
 	: m_level(Level_mask_line)
@@ -15,10 +18,11 @@ DailyMask::~DailyMask(void)
 {
 }
 
+
 void DailyMask::initialize()
 {
 	QPalette pl = this->palette();
-	pl.setBrush(QPalette::Base,QBrush(QColor(0,0,125,125)));
+	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 225)));
 	pl.setColor(QPalette::Highlight, QColor(0, 0, 0, 0));
 	pl.setColor(QPalette::HighlightedText, QColor(0, 0,0, 0));
 
@@ -32,6 +36,7 @@ void DailyMask::initialize()
 	setAttribute(Qt::WA_TransparentForMouseEvents );
 	installEventFilter(this);
 	setLineWrapMode(QTextEdit::NoWrap);
+
 	
 }
 
@@ -51,30 +56,6 @@ void DailyMask::ColorTextByLineB(int lineNumber, int columnNumber)
 
 void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
 {
-//  	ColorTextByLineB(lineNumber, columnNumber);
-//  	return;
-//  	QTextDocument* textDocument= document();//获取指定textEdit位置
-//  	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
-//  
-//  	QTextCursor cursor(textDocument);
-//  
-//  	QTextCursor highlight_cursor(textDocument);
-//  	QTextCharFormat color_format(highlight_cursor.charFormat());
-//  	color_format.setForeground(Qt::green);
-//  	color_format.setBackground(Qt::red);
-// 
-// 	selectAll();
-//  
-//  	cursor.setCharFormat(color_format);
-
-
-
-// 	QTextDocument* textDocument= document();
-// 	QTextCursor cursor(textDocument);
-// 	cursor.setPosition(30, QTextCursor::MoveAnchor);	
-// 	cursor.movePosition(QTextCursor::StartOfWord, QTextCursor::MoveAnchor, lineNumber);
-// 	cursor.select(QTextCursor::WordUnderCursor);
-// 	this->setTextCursor(cursor);
 	QTextDocument* textDocument= document();//获取指定textEdit位置
 	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
 	QTextCursor cursor(textBlock);
@@ -83,11 +64,21 @@ void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
 	bool ret = false;
 	int columnNow = 0;
 	int lineNow = 0;
-	const int MaskCount = 20;
+
+	
+	int maskBefore = maskBefore = ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskBefore"), 20);
+	int maskAfter = ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskAfter"), 10);
+	int maskLineBefore= ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskLineBefore"), 2);
+	int maskLineAfter = ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskLineAfter"), 2);
+
 
 	if (Level_mask_line == m_level)
 	{
-		int beginColumn = columnNumber - MaskCount;
+		int beginColumn = columnNumber - maskBefore;
 		if (beginColumn < 0)
 		{	
 			ret = cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor,
@@ -99,21 +90,22 @@ void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
 				beginColumn);
 		}
 		columnNow = cursor.columnNumber();
-		ret = cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, MaskCount*2);
+		ret = cursor.movePosition(QTextCursor::Right, 
+			QTextCursor::KeepAnchor, columnNumber + maskAfter);
 		columnNow = cursor.columnNumber();
 		//cursor.select(QTextCursor::WordUnderCursor);
 		this->setTextCursor(cursor);
 	}
 	else if (Level_mask_threeLine == m_level)
 	{
-		const int MutilCount = 2;
-		int upLine = MutilCount;
+		int upLine = maskLineBefore;
 		if (lineNumber < upLine)
 			upLine = lineNumber;
 	
 		ret = cursor.movePosition(QTextCursor::Up, QTextCursor::MoveAnchor, upLine);
 		lineNow = cursor.blockNumber();
-		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor, MutilCount*2);
+		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
+			lineNumber + maskLineAfter);
 		lineNow = cursor.blockNumber();
 		this->setTextCursor(cursor);
 	}
@@ -146,14 +138,14 @@ bool DailyMask::eventFilter(QObject *o, QEvent *e)
 
 void DailyMask::keyPressEvent(QKeyEvent *e)
 {
-	qDebug() << ("DailyMask");
+	// << ("DailyMask");
 	__super::keyPressEvent(e);
 }
 
 void DailyMask::setMaskLevel(Level_mask level)
 {
-// 	if (m_level == level)
-// 		m_level = Level_mask_line;
-// 	else
+	if (m_level == level)
+		m_level = Level_mask_line;
+	else
 		m_level = level;
 }

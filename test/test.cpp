@@ -4,6 +4,12 @@
 #include "stdafx.h"
 #include <iostream>
 #include <functional>
+#include <tchar.h>
+#include <string>
+
+#ifdef UNICODE
+#define tString 
+#endif
 
 void foo(int& a) {
 	++a;

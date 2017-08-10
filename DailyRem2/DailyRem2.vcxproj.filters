@@ -33,6 +33,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{2ca76bdb-2b40-4400-acf3-5abf5ed397fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +59,24 @@
     <ClCompile Include="DailyMask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DailyEdit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DailyEdit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="tool\config.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="tool\StringWy.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="DailyType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dailyrem2.h">
@@ -67,15 +88,27 @@
     <CustomBuild Include="dailyrem2.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DailyEdit.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dailyrem2.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="DailyEdit.h">
+    <ClInclude Include="DailyMask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DailyMask.h">
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tool\config.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="tool\StringWy.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="DailyType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
