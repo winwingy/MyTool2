@@ -2,6 +2,7 @@
 #include "qtextedit.h"
 class DailyMask : public QTextEdit
 {
+	Q_OBJECT
 public:
 	enum Level_mask
 	{
@@ -13,7 +14,11 @@ public:
 	~DailyMask(void);
 
 	void ColorTextByLine(int lineNumber, int columnNumber);
+	void ColorTextByRect(const QRect& rc);
 	void setMaskLevel(Level_mask level);
+
+signals:
+	void signalsSelRectChanged(const QRect& selRect);
 
 private:
 	void initialize();

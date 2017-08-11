@@ -7,11 +7,13 @@
 #include "qtimer.h"
 #include "qtextlayout.h"
 #include "QTextBlock"
+#include "MaskBack.h"
 
 
 DailyEdit::DailyEdit(QWidget* par)
 	: QTextEdit(par)
-	, m_mask(new DailyMask(this))
+	, m_back(nullptr)
+	, m_mask(nullptr)
 {
 	initialize();
 	connection();
@@ -47,9 +49,12 @@ void DailyEdit::initialize()
 // 	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 125)));
 // 
 // 	this->setPalette(pl);
+	m_mask = new DailyMask(this);
+	m_back = new MaskBack(this, m_mask);
+
 	QHBoxLayout* layout = new QHBoxLayout(this);
 	layout->setMargin(0);
-	layout->addWidget(m_mask);
+	layout->addWidget(m_back);
 
 	QString fileStream;
 	getFileSteam("mask.txt", &fileStream);
@@ -100,7 +105,11 @@ void DailyEdit::connection()
 void DailyEdit::onCursorPositionChanged(int* row, int* column)
 {
 	*row = getCursorLine2(column);
-	m_mask->ColorTextByLine(*row, *column);
+	//m_mask->ColorTextByLine(*row, *column);
+
+
+
+	m_mask->ColorTextByRect(cursorRect());
 }
 
 void DailyEdit::test()
@@ -142,9 +151,11 @@ void DailyEdit::onHotKey(QKeyEvent *e)
 	if (isChange)
 	{
 		int columnNumber = 0;
-		int lineNumber = getCursorLine(&columnNumber);
+		//int lineNumber = getCursorLine(&columnNumber);
 		// << "lineNumber=" << lineNumber << "columnNumber=" << columnNumber;
-		m_mask->ColorTextByLine(lineNumber, columnNumber);
+		//m_mask->ColorTextByLine(lineNumber, columnNumber);
+
+		m_mask->ColorTextByRect(cursorRect());
 	}
 }
 

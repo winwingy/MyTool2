@@ -5,6 +5,7 @@
 #include "qtextobject.h"
 #include "tool\config.h"
 #include "DailyType.h"
+#include "tool\logWj.h"
 
 DailyMask::DailyMask(QWidget* par)
 	: m_level(Level_mask_line)
@@ -22,7 +23,7 @@ DailyMask::~DailyMask(void)
 void DailyMask::initialize()
 {
 	QPalette pl = this->palette();
-	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 225)));
+	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 125)));
 	pl.setColor(QPalette::Highlight, QColor(0, 0, 0, 0));
 	pl.setColor(QPalette::HighlightedText, QColor(0, 0,0, 0));
 
@@ -66,7 +67,7 @@ void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
 	int lineNow = 0;
 
 	
-	int maskBefore = maskBefore = ConfigWy::GetShared()->GetValue(
+	int maskBefore = ConfigWy::GetShared()->GetValue(
 		APPKEY, _T("maskBefore"), 20);
 	int maskAfter = ConfigWy::GetShared()->GetValue(
 		APPKEY, _T("maskAfter"), 10);
@@ -148,4 +149,58 @@ void DailyMask::setMaskLevel(Level_mask level)
 		m_level = Level_mask_line;
 	else
 		m_level = level;
+}
+
+void DailyMask::ColorTextByRect(const QRect& rc)
+{
+	QTextCursor cursor = cursorForPosition(
+		QPoint(rc.left() + rc.width()/2, rc.top() + rc.height()/2));
+
+	int lineNumber = cursor.blockNumber();
+	int columnNumber = cursor.columnNumber();
+	
+	TRACE_printf(_T("%d, %d"), lineNumber, columnNumber);
+
+	int maskBefore =  ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskBefore"), 20);
+	int maskAfter = ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskAfter"), 10);
+	int maskLineBefore= ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskLineBefore"), 2);
+	int maskLineAfter = ConfigWy::GetShared()->GetValue(
+		APPKEY, _T("maskLineAfter"), 2);
+
+	bool ret = false;
+	int columnNow = 0;
+	QRect selRect;
+	if (Level_mask_line == m_level)
+	{
+		ret = cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor,
+			maskBefore);
+		selRect.setTopLeft(cursorRect(cursor).topLeft());
+		ret = cursor.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor, 
+			maskBefore + maskAfter);
+		selRect.setBottomRight(cursorRect(cursor).bottomRight());
+		this->setTextCursor(cursor);
+	}
+	else if (Level_mask_threeLine == m_level)
+	{
+		int upLine = maskLineBefore;
+		if (lineNumber < upLine)
+			upLine = lineNumber;
+
+		ret = cursor.movePosition(QTextCursor::Up, QTextCursor::MoveAnchor, upLine);
+		int lineNow = cursor.blockNumber();
+		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
+			lineNumber + maskLineAfter);
+		lineNow = cursor.blockNumber();
+		this->setTextCursor(cursor);
+	}
+	else if (Level_mask_clear == m_level)
+	{
+		cursor.select(QTextCursor::Document);
+		this->setTextCursor(cursor);		
+	}
+
+	emit signalsSelRectChanged(selRect);
 }

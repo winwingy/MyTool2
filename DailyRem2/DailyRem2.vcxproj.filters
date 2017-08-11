@@ -77,6 +77,24 @@
     <ClCompile Include="DailyType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tool\LogWj.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DailyMask.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DailyMask.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="MaskBack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MaskBack.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MaskBack.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dailyrem2.h">
@@ -91,13 +109,16 @@
     <CustomBuild Include="DailyEdit.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="DailyMask.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MaskBack.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dailyrem2.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DailyMask.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
@@ -110,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="DailyType.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tool\logWj.h">
+      <Filter>tool</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "qtextedit.h"
 
 class DailyMask;
+class MaskBack;
 class DailyEdit : public QTextEdit
 {
 	Q_OBJECT
@@ -28,6 +29,7 @@ private:
 	void onHotKey(QKeyEvent *e);
 	void onCursorPositionChanged(int* row, int* column);
 	int getCursorLine2(int* column);
+	MaskBack* m_back;
 	DailyMask* m_mask;
 };
 

@@ -33,7 +33,7 @@ void DailyRem2::initialize()
 	QHBoxLayout* layout = new QHBoxLayout(center);
 	layout->setMargin(0);
 	layout->addWidget(m_daily);
-	setGeometry(100, 100, 1000, 800);
+	setGeometry(100, 100, 1200, 800);
 }
 
 void DailyRem2::connection()
@@ -41,7 +41,7 @@ void DailyRem2::connection()
 	QObject::connect(m_daily, &DailyEdit::cursorPositionChangedEx, 
 		[&](int row, int column)
 	{
-		statusBar()->showMessage(QString("x=%1 , y=%2").arg(row).arg(column));
+		statusBar()->showMessage(QString("row=%1 , column=%2").arg(row).arg(column));
 	});
 }
 
