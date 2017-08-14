@@ -30,21 +30,24 @@ void MaskBack::connection()
 	QObject::connect(m_daily, &DailyMask::signalsSelRectChanged, 
 		[&](const QRect& selRect)
 	{
-		qDebug() << m_selRect;
+		m_test = 5;
 		m_selRect = selRect;
-		qDebug() << m_selRect;
-		update();
+		//update();
 	});
 }
 
 void MaskBack::paintEvent(QPaintEvent * ev)
 {
+	if (m_selRect.isEmpty())
+	{
+		return;
+	}
 	QImage emptyImg(m_selRect.width(), m_selRect.height(), QImage::Format_ARGB32);
 	emptyImg.fill(Qt::transparent);
 	{
 		QPainter painterImg(&emptyImg);
 		//painterImg.begin(&emptyImg);
-		m_selRect.moveTo(0, 0);
+		//m_selRect.moveTo(0, 0);
 		painterImg.fillRect(m_selRect, QBrush(Qt::transparent));
 		//painterImg.end();
 	}
@@ -62,6 +65,9 @@ void MaskBack::paintEvent(QPaintEvent * ev)
 
 		painterImg2.end();
 	}
+
+	QPainter painter(this);
+	painter.drawImage(0, 0, img);
 
 
 	

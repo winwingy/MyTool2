@@ -190,16 +190,23 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 			upLine = lineNumber;
 
 		ret = cursor.movePosition(QTextCursor::Up, QTextCursor::MoveAnchor, upLine);
+		ret = cursor.movePosition(QTextCursor::StartOfBlock,
+			QTextCursor::MoveAnchor, 1);		
 		int lineNow = cursor.blockNumber();
+		selRect.setTopLeft(cursorRect(cursor).topLeft());
 		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
 			lineNumber + maskLineAfter);
+		ret = cursor.movePosition(QTextCursor::EndOfBlock,
+			QTextCursor::KeepAnchor, 1);
 		lineNow = cursor.blockNumber();
+		selRect.setBottomRight(cursorRect(cursor).bottomRight());
 		this->setTextCursor(cursor);
 	}
 	else if (Level_mask_clear == m_level)
 	{
 		cursor.select(QTextCursor::Document);
-		this->setTextCursor(cursor);		
+		this->setTextCursor(cursor);	
+		selRect.setRect(rect().left(), rect().top(), rect().right(), rect().bottom());
 	}
 
 	emit signalsSelRectChanged(selRect);

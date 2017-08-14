@@ -16,5 +16,7 @@ private:
 
 	DailyMask* m_daily;
 	QRect m_selRect;
+
+	int m_test;
 };
 
