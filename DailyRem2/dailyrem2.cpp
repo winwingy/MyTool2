@@ -72,3 +72,9 @@ void DailyRem2::resizeEvent(QResizeEvent *ev)
 
 	__super::resizeEvent(ev);
 }
+
+void DailyRem2::closeEvent(QCloseEvent *ev)
+{
+	m_daily->saveFile();
+	__super::closeEvent(ev);
+}

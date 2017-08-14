@@ -14,6 +14,7 @@ public:
 
 private:
 	virtual void resizeEvent(QResizeEvent *ev) override;	
+	virtual void closeEvent(QCloseEvent *ev) override;
 	void initialize();
 	void connection();
 

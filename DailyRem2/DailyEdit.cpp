@@ -211,7 +211,7 @@ void DailyEdit::saveFile()
 void DailyEdit::openFile()
 {
 	auto & strPath = QFileDialog::getOpenFileName(this,QObject::tr("选择文件"),
-		"",QString("%1 (*.*)").arg(QObject::tr("所有文件")));
+		"E:",QString("%1 (*.*)").arg(QObject::tr("所有文件")));
 	if(strPath.isEmpty()){
 		return;
 	}

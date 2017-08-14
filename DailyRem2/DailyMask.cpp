@@ -128,11 +128,11 @@ void DailyMask::resizeEvent(QResizeEvent * ev)
 
 bool DailyMask::eventFilter(QObject *o, QEvent *e)
 {
-	if (e->type() == QEvent::MouseButtonPress)
-	{
-		e->ignore();
-		return true;
-	}
+// 	if (e->type() == QEvent::MouseButtonPress)
+// 	{
+// 		e->ignore();
+// 		return true;
+// 	}
 	return __super::eventFilter(o, e);
 }
 
