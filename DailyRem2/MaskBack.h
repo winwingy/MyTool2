@@ -15,7 +15,7 @@ private:
 	void connection();
 
 	DailyMask* m_daily;
-	QRect m_selRect;
+	std::vector<QRect> m_selRect;
 
 	int m_test;
 };

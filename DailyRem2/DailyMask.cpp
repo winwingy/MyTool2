@@ -9,6 +9,7 @@
 
 DailyMask::DailyMask(QWidget* par)
 	: m_level(Level_mask_line)
+	, m_lineHeight(0)
 {
 	initialize();
 	connection();
@@ -36,9 +37,7 @@ void DailyMask::initialize()
 	// 所有鼠标键盘操作全部会穿透窗口到下方窗口
 	setAttribute(Qt::WA_TransparentForMouseEvents );
 	installEventFilter(this);
-	setLineWrapMode(QTextEdit::NoWrap);
-
-	
+	setLineWrapMode(QTextEdit::NoWrap);		
 }
 
 
@@ -53,69 +52,69 @@ void DailyMask::ColorTextByLineB(int lineNumber, int columnNumber)
 	cursor.select(QTextCursor::LineUnderCursor);
 	setTextCursor(cursor);
 }
-
-
-void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
-{
-	QTextDocument* textDocument= document();//获取指定textEdit位置
-	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
-	QTextCursor cursor(textBlock);
-	cursor.setVisualNavigation(true);
-	cursor.clearSelection();
-	bool ret = false;
-	int columnNow = 0;
-	int lineNow = 0;
-
-	
-	int maskBefore = ConfigWy::GetShared()->GetValue(
-		APPKEY, _T("maskBefore"), 20);
-	int maskAfter = ConfigWy::GetShared()->GetValue(
-		APPKEY, _T("maskAfter"), 10);
-	int maskLineBefore= ConfigWy::GetShared()->GetValue(
-		APPKEY, _T("maskLineBefore"), 2);
-	int maskLineAfter = ConfigWy::GetShared()->GetValue(
-		APPKEY, _T("maskLineAfter"), 2);
-
-
-	if (Level_mask_line == m_level)
-	{
-		int beginColumn = columnNumber - maskBefore;
-		if (beginColumn < 0)
-		{	
-			ret = cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor,
-				-beginColumn);
-		}
-		else
-		{
-			ret = cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, 
-				beginColumn);
-		}
-		columnNow = cursor.columnNumber();
-		ret = cursor.movePosition(QTextCursor::Right, 
-			QTextCursor::KeepAnchor, columnNumber + maskAfter);
-		columnNow = cursor.columnNumber();
-		//cursor.select(QTextCursor::WordUnderCursor);
-		this->setTextCursor(cursor);
-	}
-	else if (Level_mask_threeLine == m_level)
-	{
-		int upLine = maskLineBefore;
-		if (lineNumber < upLine)
-			upLine = lineNumber;
-	
-		ret = cursor.movePosition(QTextCursor::Up, QTextCursor::MoveAnchor, upLine);
-		lineNow = cursor.blockNumber();
-		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
-			lineNumber + maskLineAfter);
-		lineNow = cursor.blockNumber();
-		this->setTextCursor(cursor);
-	}
-	else if (Level_mask_clear == m_level)
-	{
-		cursor.select(QTextCursor::Document);
-		this->setTextCursor(cursor);		
-	}
-}
+// 
+// 
+// void DailyMask::ColorTextByLine(int lineNumber, int columnNumber)
+// {
+// 	QTextDocument* textDocument= document();//获取指定textEdit位置
+// 	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
+// 	QTextCursor cursor(textBlock);
+// 	cursor.setVisualNavigation(true);
+// 	cursor.clearSelection();
+// 	bool ret = false;
+// 	int columnNow = 0;
+// 	int lineNow = 0;
+// 
+// 	
+// 	int maskBefore = ConfigWy::GetShared()->GetValue(
+// 		APPKEY, _T("maskBefore"), 20);
+// 	int maskAfter = ConfigWy::GetShared()->GetValue(
+// 		APPKEY, _T("maskAfter"), 10);
+// 	int maskLineBefore= ConfigWy::GetShared()->GetValue(
+// 		APPKEY, _T("maskLineBefore"), 2);
+// 	int maskLineAfter = ConfigWy::GetShared()->GetValue(
+// 		APPKEY, _T("maskLineAfter"), 2);
+// 
+// 
+// 	if (Level_mask_line == m_level)
+// 	{
+// 		int beginColumn = columnNumber - maskBefore;
+// 		if (beginColumn < 0)
+// 		{	
+// 			ret = cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor,
+// 				-beginColumn);
+// 		}
+// 		else
+// 		{
+// 			ret = cursor.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor, 
+// 				beginColumn);
+// 		}
+// 		columnNow = cursor.columnNumber();
+// 		ret = cursor.movePosition(QTextCursor::Right, 
+// 			QTextCursor::KeepAnchor, columnNumber + maskAfter);
+// 		columnNow = cursor.columnNumber();
+// 		//cursor.select(QTextCursor::WordUnderCursor);
+// 		this->setTextCursor(cursor);
+// 	}
+// 	else if (Level_mask_threeLine == m_level)
+// 	{
+// 		int upLine = maskLineBefore;
+// 		if (lineNumber < upLine)
+// 			upLine = lineNumber;
+// 	
+// 		ret = cursor.movePosition(QTextCursor::Up, QTextCursor::MoveAnchor, upLine);
+// 		lineNow = cursor.blockNumber();
+// 		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
+// 			lineNumber + maskLineAfter);
+// 		lineNow = cursor.blockNumber();
+// 		this->setTextCursor(cursor);
+// 	}
+// 	else if (Level_mask_clear == m_level)
+// 	{
+// 		cursor.select(QTextCursor::Document);
+// 		this->setTextCursor(cursor);		
+// 	}
+// }
 
 void DailyMask::connection()
 {
@@ -173,6 +172,8 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 	bool ret = false;
 	int columnNow = 0;
 	QRect selRect;
+	QRect selRect1;
+	QRect rcThis = rect();
 	if (Level_mask_line == m_level)
 	{
 		ret = cursor.movePosition(QTextCursor::Left, QTextCursor::MoveAnchor,
@@ -182,6 +183,16 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 			maskBefore + maskAfter);
 		selRect.setBottomRight(cursorRect(cursor).bottomRight());
 		this->setTextCursor(cursor);
+		
+		if (selRect.height() > rc.height() + 5)
+		{
+			QRect temRc = selRect;
+			int perLineHeight = selRect.height() / 2;
+			selRect.setRight(rcThis.right());
+			selRect.setBottom(selRect.top() + perLineHeight);
+			selRect1.setRect(rcThis.left(), selRect.bottom(), 
+				temRc.right(), temRc.bottom());
+		}
 	}
 	else if (Level_mask_threeLine == m_level)
 	{
@@ -195,7 +206,7 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 		int lineNow = cursor.blockNumber();
 		selRect.setTopLeft(cursorRect(cursor).topLeft());
 		ret = cursor.movePosition(QTextCursor::Down, QTextCursor::KeepAnchor,
-			lineNumber + maskLineAfter);
+			upLine + maskLineAfter);
 		ret = cursor.movePosition(QTextCursor::EndOfBlock,
 			QTextCursor::KeepAnchor, 1);
 		lineNow = cursor.blockNumber();
@@ -209,5 +220,10 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 		selRect.setRect(rect().left(), rect().top(), rect().right(), rect().bottom());
 	}
 
-	emit signalsSelRectChanged(selRect);
+	std::vector<QRect> rectList;
+	rectList.push_back(selRect);
+	if (!selRect1.isEmpty())
+		rectList.push_back(selRect1);
+
+	emit signalsSelRectChanged(rectList);
 }

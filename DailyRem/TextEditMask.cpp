@@ -94,16 +94,16 @@ void TextEditMask::setClearArea(const QRect& rc)
 
 void TextEditMask::ColorTextByLine(int lineNumber)
 {
-	QTextDocument* textDocument= document();//获取指定textEdit位置
-	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
-	
-	QTextCursor cursor(textBlock);
-
-	QTextCursor highlight_cursor(textDocument);
-	QTextCharFormat color_format(highlight_cursor.charFormat());
-	color_format.setForeground(Qt::green);
-
-	cursor.mergeCharFormat(color_format);
+// 	QTextDocument* textDocument= document();//获取指定textEdit位置
+// 	QTextBlock textBlock = textDocument->findBlockByLineNumber(lineNumber);//通过行号找到指定行 数据块
+// 	
+// 	QTextCursor cursor(textBlock);
+// 
+// 	QTextCursor highlight_cursor(textDocument);
+// 	QTextCharFormat color_format(highlight_cursor.charFormat());
+// 	color_format.setForeground(Qt::green);
+// 
+// 	cursor.mergeCharFormat(color_format);
 }
 
 // void TextEditMask::ColorTextByLine(int lineNumber)

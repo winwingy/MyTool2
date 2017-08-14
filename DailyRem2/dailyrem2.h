@@ -18,6 +18,8 @@ private:
 	void connection();
 
 	DailyEdit* m_daily;
+	QMenuBar* m_menuBar;
+	QMenu* m_menu;
 
 };
 

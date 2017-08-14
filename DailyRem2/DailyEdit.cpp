@@ -8,15 +8,39 @@
 #include "qtextlayout.h"
 #include "QTextBlock"
 #include "MaskBack.h"
+#include <shlobj.h>
+#include "tool\StringWy.h"
+#include <time.h>
+#include "qmenubar.h"
+#include "qfiledialog.h"
 
+tString getMyDoc()      // 获取“我的文档”路径  
+{  
+	TCHAR m_lpszDefaultDir[MAX_PATH] = {0};  
+	TCHAR szDocument[MAX_PATH] = {0};  
+	LPITEMIDLIST pidl = NULL;  
+	SHGetSpecialFolderLocation(NULL, CSIDL_PERSONAL, &pidl);  
+	if (pidl && SHGetPathFromIDList(pidl, szDocument))  
+	{  
+		GetShortPathName(szDocument, m_lpszDefaultDir, _MAX_PATH);  
+	}
+	return szDocument;  
+} 
 
 DailyEdit::DailyEdit(QWidget* par)
 	: QTextEdit(par)
 	, m_back(nullptr)
 	, m_mask(nullptr)
+	, m_filePath()
 {
+	createUi();
 	initialize();
 	connection();
+	tString filePath = getMyDoc() +  _T("\\Dailyrem2\\");
+	BOOL ret = CreateDirectory(filePath.c_str(), nullptr);
+	time_t ti = time(nullptr);
+	filePath += StringWy::IntToString(ti) + _T(".dly");
+	m_filePath = filePath;
 	//test();
 }
 
@@ -43,12 +67,18 @@ void getFileSteam(const QString& filePath, QString* fileStream)
 	fclose(fp);
 }
 
+void DailyEdit::createUi()
+{
+
+}
+
 void DailyEdit::initialize()
 {
 // 	QPalette pl = this->palette();
 // 	pl.setBrush(QPalette::Base,QBrush(QColor(63, 93, 123, 125)));
 // 
 // 	this->setPalette(pl);
+
 	m_mask = new DailyMask(this);
 	m_back = new MaskBack(this, m_mask);
 
@@ -146,6 +176,11 @@ void DailyEdit::onHotKey(QKeyEvent *e)
 				isChange = true;
 				break;
 			}
+		case Qt::Key_S:
+			{
+				saveFile();
+				break;
+			}
 		}
 	}
 	if (isChange)
@@ -159,6 +194,48 @@ void DailyEdit::onHotKey(QKeyEvent *e)
 	}
 }
 
+void DailyEdit::saveFile()
+{
+	FILE* fp = nullptr;
+	_tfopen_s(&fp, m_filePath.c_str(), _T("wb"));
+	QString text = toPlainText();
+	std::wstring localText = text.toStdWString();
+	for (int i = 0; i < localText.size(); ++i)
+	{
+		localText[i] += 88;
+	}
+	int wirted = fwrite(localText.c_str(), 2, localText.size(), fp);
+	fclose(fp);
+}
+
+void DailyEdit::openFile()
+{
+	auto & strPath = QFileDialog::getOpenFileName(this,QObject::tr("选择文件"),
+		"",QString("%1 (*.*)").arg(QObject::tr("所有文件")));
+	if(strPath.isEmpty()){
+		return;
+	}
+
+
+
+	FILE* fp = nullptr;
+	_tfopen_s(&fp, strPath.toStdWString().c_str(), _T("rb"));
+
+	fseek(fp, 0, SEEK_END);
+	int size = ftell(fp);
+	fseek(fp, 0, SEEK_SET);
+
+	std::wstring localText;
+	localText.resize(size / 2);
+	int readed = fread(const_cast<wchar_t*>(localText.c_str()),
+		2, size/2, fp);
+	fclose(fp);
+	for (int i = 0; i < localText.size(); ++i)
+	{
+		localText[i] -= 88;
+	}
+	setText(QString::fromStdWString(localText));
+}
 
 void DailyEdit::keyPressEvent(QKeyEvent *e)
 {

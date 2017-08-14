@@ -4,6 +4,7 @@
 #include "qboxlayout.h"
 #include "qstatusbar.h"
 #include "tool\config.h"
+#include "qmenubar.h"
 
 DailyRem2::DailyRem2(QWidget *parent)
 	: QMainWindow(parent)
@@ -24,16 +25,30 @@ DailyRem2::~DailyRem2()
 
 void DailyRem2::initialize()
 {
-	QStatusBar* statusBar = new QStatusBar(this);
-	statusBar->setObjectName(QStringLiteral("statusBar"));
-	setStatusBar(statusBar);
-
+	setGeometry(100, 100, 1200, 800);	
 	QWidget* center = new QWidget(this);
 	setCentralWidget(center);
 	QHBoxLayout* layout = new QHBoxLayout(center);
-	layout->setMargin(0);
+	layout->setContentsMargins(0, 0, 0, 0);
 	layout->addWidget(m_daily);
-	setGeometry(100, 100, 1200, 800);
+
+	m_menu = menuBar()->addMenu(QString::fromStdWString(L"ÎÄ¼ş"));
+	QAction* openAction = new QAction(this);
+	openAction->setText("open");
+	QObject::connect(openAction, &QAction::triggered, [&]()
+	{
+		m_daily->openFile();
+	});	
+
+	QAction* saveAction = new QAction(this);
+	saveAction->setText("save");
+	QObject::connect(saveAction, &QAction::triggered, [&]()
+	{
+		m_daily->saveFile();
+	});
+
+	m_menu->addAction(openAction);
+	m_menu->addAction(saveAction);
 }
 
 void DailyRem2::connection()
@@ -47,6 +62,13 @@ void DailyRem2::connection()
 
 void DailyRem2::resizeEvent(QResizeEvent *ev)
 {
+// 	QRect rc = m_menuBar->rect();
+// 	bool isVis = m_menuBar->isVisible();
+// 	QRect menuRect = m_menu->rect();
+// 	isVis = m_menu->isVisible();
+// 	QObject* par = m_menu->parent();
+// 	QObject*  parBar = m_menuBar->parent();
+
 
 	__super::resizeEvent(ev);
 }

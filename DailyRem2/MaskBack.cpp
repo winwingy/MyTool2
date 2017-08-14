@@ -28,7 +28,7 @@ void MaskBack::initialize()
 void MaskBack::connection()
 {
 	QObject::connect(m_daily, &DailyMask::signalsSelRectChanged, 
-		[&](const QRect& selRect)
+		[&](const std::vector<QRect>& selRect)
 	{
 		m_test = 5;
 		m_selRect = selRect;
@@ -38,17 +38,26 @@ void MaskBack::connection()
 
 void MaskBack::paintEvent(QPaintEvent * ev)
 {
-	if (m_selRect.isEmpty())
-	{
+	if (m_selRect.empty())
 		return;
-	}
-	QImage emptyImg(m_selRect.width(), m_selRect.height(), QImage::Format_ARGB32);
+
+	QRect rectA = m_selRect[0];
+	QRect rectB;
+	if (m_selRect.size() > 1)
+		rectB = m_selRect[1];
+
+	if (rectA.isEmpty())
+		return;
+
+	QImage emptyImg(size().width(), size().height(), QImage::Format_ARGB32);
 	emptyImg.fill(Qt::transparent);
 	{
 		QPainter painterImg(&emptyImg);
 		//painterImg.begin(&emptyImg);
 		//m_selRect.moveTo(0, 0);
-		painterImg.fillRect(m_selRect, QBrush(Qt::transparent));
+		painterImg.fillRect(rectA, QBrush(Qt::green));
+		if (!rectB.isEmpty())
+			painterImg.fillRect(rectB, QBrush(Qt::yellow));
 		//painterImg.end();
 	}
 
@@ -60,8 +69,8 @@ void MaskBack::paintEvent(QPaintEvent * ev)
 		painterImg2.setCompositionMode(QPainter::CompositionMode_Source);
 		painterImg2.fillRect(rect(), QBrush(Qt::white));
 
-		painterImg2.setCompositionMode(QPainter::CompositionMode_SourceOut);
-		painterImg2.drawImage(m_selRect, emptyImg);
+		painterImg2.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+		painterImg2.drawImage(rect(), emptyImg);
 
 		painterImg2.end();
 	}

@@ -18,7 +18,7 @@ public:
 	void setMaskLevel(Level_mask level);
 
 signals:
-	void signalsSelRectChanged(const QRect& selRect);
+	void signalsSelRectChanged(const std::vector<QRect>& selRect);
 
 private:
 	void initialize();
@@ -28,5 +28,6 @@ private:
 	virtual bool eventFilter(QObject *o, QEvent *e) override;
 	void ColorTextByLineB(int lineNumber, int columnNumber);
 	Level_mask m_level;
+	int m_lineHeight;
 };
 
