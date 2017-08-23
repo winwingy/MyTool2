@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="DailyRem2">
+    <qresource prefix="/DailyRem2">
+        <file>icon1.ico</file>
     </qresource>
 </RCC>

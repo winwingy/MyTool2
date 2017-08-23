@@ -37,5 +37,6 @@ private:
 	MaskBack* m_back;
 	DailyMask* m_mask;
 	tString m_filePath;
+	int m_inputCharacter;
 };
 

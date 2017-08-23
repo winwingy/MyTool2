@@ -22,7 +22,7 @@ MaskBack::~MaskBack(void)
 
 void MaskBack::initialize()
 {
-
+	setAttribute(Qt::WA_TransparentForMouseEvents );
 }
 
 void MaskBack::connection()

@@ -135,5 +135,14 @@
     <ClInclude Include="tool\logWj.h">
       <Filter>tool</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DailyRem2.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon1.ico" />
   </ItemGroup>
 </Project>

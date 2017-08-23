@@ -9,6 +9,7 @@ public:
 		Level_mask_line,
 		Level_mask_threeLine,
 		Level_mask_clear,
+		Level_mask_all,
 	};
 	DailyMask(QWidget* par);
 	~DailyMask(void);

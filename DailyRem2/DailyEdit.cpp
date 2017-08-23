@@ -13,6 +13,8 @@
 #include <time.h>
 #include "qmenubar.h"
 #include "qfiledialog.h"
+#include "qvariant.h"
+#include "QDateTime"
 
 tString getMyDoc()      // 获取“我的文档”路径  
 {  
@@ -32,6 +34,7 @@ DailyEdit::DailyEdit(QWidget* par)
 	, m_back(nullptr)
 	, m_mask(nullptr)
 	, m_filePath()
+	, m_inputCharacter(0)
 {
 	createUi();
 	initialize();
@@ -39,7 +42,10 @@ DailyEdit::DailyEdit(QWidget* par)
 	tString filePath = getMyDoc() +  _T("\\Dailyrem2\\");
 	BOOL ret = CreateDirectory(filePath.c_str(), nullptr);
 	time_t ti = time(nullptr);
-	filePath += StringWy::IntToString(ti) + _T(".dly");
+	QDateTime date(QDateTime::currentDateTime());
+	QString dateTime = date.toString("MM-dd hh_mm_ss");
+
+	filePath += dateTime.toStdWString() + _T(".dly");
 	m_filePath = filePath;
 	//test();
 }
@@ -58,6 +64,9 @@ void getFileSteam(const QString& filePath, QString* fileStream)
 {
 	FILE* fp = nullptr;
 	_tfopen_s(&fp, filePath.toStdWString().c_str(), _T("rb"));
+	if (!fp)
+		return;
+	
 	fseek(fp, 0, SEEK_END);
 	int size = ftell(fp);
 	fileStream->resize(size);
@@ -92,6 +101,10 @@ void DailyEdit::initialize()
 	{
 		getFileSteam("..\\DailyRem2\\mask.txt", &fileStream);
 	}
+	if (fileStream.isEmpty())
+	{
+		getFileSteam("..\\..\\DailyRem2\\mask.txt", &fileStream);
+	}
 	fileStream.replace("\r\n", "\0");
 	fileStream.replace(" ", "\0");
 	fileStream.replace("	", "\0");
@@ -102,6 +115,24 @@ void DailyEdit::initialize()
 		fileStream.insert(i*80, "\r\n");
 	}
 	m_mask->setText(fileStream);
+
+
+	QTimer* timer = new QTimer(this);
+	timer->setInterval(1000*30);
+	bool single = timer->isSingleShot();
+	QObject::connect(timer, &QTimer::timeout, [&](){
+		if (m_inputCharacter < 5)
+		{
+			m_mask->setMaskLevel(DailyMask::Level_mask_all);
+			int row = 0;
+			int column = 0;
+			onCursorPositionChanged(&row, &column);
+			emit cursorPositionChangedEx(row, column);
+			m_back->update();
+		}
+		m_inputCharacter = 0;
+	});
+	timer->start();
 
 }
 
@@ -240,6 +271,7 @@ void DailyEdit::openFile()
 void DailyEdit::keyPressEvent(QKeyEvent *e)
 {
 	onHotKey(e);
+	m_inputCharacter++;
 
 	__super::keyPressEvent(e);
 // 	int columnNumber = 0;

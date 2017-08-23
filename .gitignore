@@ -43,9 +43,11 @@
 /test2/*.user
 /*.opensdf
 /test/*.user
+*.user
 /*/Debug
 /*/Release
 /test*
 /XstrainSkinChecker/*.user
 /flyAnimation/*.user
 /*/GeneratedFiles
+*.aps

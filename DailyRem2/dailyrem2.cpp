@@ -12,8 +12,10 @@ DailyRem2::DailyRem2(QWidget *parent)
 {
 	if (!ConfigWy::GetShared()->Init(_T(".\\config.ini")))
 		ConfigWy::GetShared()->Init(_T("..\\DailyRem2\\config.ini"));
-
-	 m_daily = new DailyEdit(this);
+	
+	QIcon icon = QIcon(QString(":/DailyRem2/icon1.ico"));
+	bool isValid = !icon.isNull();
+	setWindowIcon(icon);	
 	initialize();
 	connection();
 }
@@ -25,7 +27,7 @@ DailyRem2::~DailyRem2()
 
 void DailyRem2::initialize()
 {
-	setGeometry(100, 100, 1200, 800);	
+	setGeometry(600, 200, 1200, 800);	
 	QWidget* center = new QWidget(this);
 	setCentralWidget(center);
 	QHBoxLayout* layout = new QHBoxLayout(center);

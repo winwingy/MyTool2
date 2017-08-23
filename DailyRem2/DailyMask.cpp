@@ -144,6 +144,12 @@ void DailyMask::keyPressEvent(QKeyEvent *e)
 
 void DailyMask::setMaskLevel(Level_mask level)
 {
+	if (Level_mask_all == level)
+	{
+		m_level = level;
+		return;
+	}
+	
 	if (m_level == level)
 		m_level = Level_mask_line;
 	else
@@ -218,6 +224,12 @@ void DailyMask::ColorTextByRect(const QRect& rc)
 		cursor.select(QTextCursor::Document);
 		this->setTextCursor(cursor);	
 		selRect.setRect(rect().left(), rect().top(), rect().right(), rect().bottom());
+	}
+	else if (Level_mask_all == m_level)
+	{
+		cursor.clearSelection();
+		this->setTextCursor(cursor);
+		selRect.setRect(1000, 1000, 1, 1);
 	}
 
 	std::vector<QRect> rectList;
