@@ -1,7 +1,7 @@
 #pragma once
 class QVariantAnimation;
 
-class FlyRotateAnimationImpl  : public QWidget
+class FlyRotateAnimationImpl : public QWidget
 {
 public:
 	FlyRotateAnimationImpl(void);
@@ -19,12 +19,12 @@ public:
 
 
 private:
-	virtual void paintEvent(QPaintEvent *ev) override;
+	void paintEvent(QPaintEvent* ev) override;
 
 	QObject* m_holder;
 	bool m_isStart;
 	QString m_picPath;
-	QPixmap m_picPixmap;
+	QPixmap m_picPixmapxxxxxxxxxxxxxtttttttttttt;
 	QPoint m_begPt;
 	QPoint m_endPt;
 	int m_durationMs;
@@ -33,7 +33,4 @@ private:
 	QVariantAnimation* m_animationY;
 	QVariantAnimation* m_animationRotate;
 	qreal m_rotateValue;
-
-
 };
-

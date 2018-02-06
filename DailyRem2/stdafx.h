@@ -5,8 +5,9 @@
 #include <tchar.h>
 #include <QDebug>
 #include <QLabel>
-#include "qboxlayout"
+#include <qboxlayout>
 #include <QPainter>
+#include <QLineEdit>
 #include "./tool/logWj.h"
 
 

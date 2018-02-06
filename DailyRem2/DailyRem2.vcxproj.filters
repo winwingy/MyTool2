@@ -95,6 +95,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_MaskBack.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="PassWordDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dailyrem2.h">
@@ -136,6 +139,9 @@
       <Filter>tool</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassWordDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

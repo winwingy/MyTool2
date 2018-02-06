@@ -145,6 +145,7 @@ void DailyEdit::connection()
 		int row = 0;
 		int column = 0;
 		onCursorPositionChanged(&row, &column);
+		m_inputCharacter++;
 		emit cursorPositionChangedEx(row, column);
 	});
 }
@@ -247,7 +248,13 @@ void DailyEdit::openFile()
 		return;
 	}
 
-
+	{
+		QString md5;  
+		QString pwd="123456";  
+		QByteArray bb;  
+		bb = QCryptographicHash::hash ( pwd.toAscii(), QCryptographicHash::Md5 );  
+		md5.append(bb.toHex());
+	}
 
 	FILE* fp = nullptr;
 	_tfopen_s(&fp, strPath.toStdWString().c_str(), _T("rb"));
@@ -271,8 +278,6 @@ void DailyEdit::openFile()
 void DailyEdit::keyPressEvent(QKeyEvent *e)
 {
 	onHotKey(e);
-	m_inputCharacter++;
-
 	__super::keyPressEvent(e);
 // 	int columnNumber = 0;
 // 	int lineNumber = getCursorLine(&columnNumber);

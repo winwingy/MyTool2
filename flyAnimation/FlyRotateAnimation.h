@@ -3,6 +3,7 @@
 #include "qrect"
 #include "qpoint"
 class FlyRotateAnimationImpl;
+
 class FlyRotateAnimation : QObject
 {
 public:
@@ -21,6 +22,4 @@ public:
 
 private:
 	FlyRotateAnimationImpl* m_impl;
-
 };
-

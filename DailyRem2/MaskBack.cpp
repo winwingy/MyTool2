@@ -2,6 +2,7 @@
 #include "MaskBack.h"
 #include "qboxlayout"
 #include "DailyMask.h"
+#include "dailyrem2.h"
 
 MaskBack::MaskBack(QWidget* par, DailyMask* child)
 	: QLabel(par)
@@ -22,21 +23,21 @@ MaskBack::~MaskBack(void)
 
 void MaskBack::initialize()
 {
-	setAttribute(Qt::WA_TransparentForMouseEvents );
+	setAttribute(Qt::WA_TransparentForMouseEvents);
 }
 
 void MaskBack::connection()
 {
-	QObject::connect(m_daily, &DailyMask::signalsSelRectChanged, 
-		[&](const std::vector<QRect>& selRect)
-	{
-		m_test = 5;
-		m_selRect = selRect;
-		//update();
-	});
+	QObject::connect(m_daily, &DailyMask::signalsSelRectChanged,
+	                 [&](const std::vector<QRect>& selRect)
+                 {
+	                 m_test = 5;
+	                 m_selRect = selRect;
+	                 //update();
+                 });
 }
 
-void MaskBack::paintEvent(QPaintEvent * ev)
+void MaskBack::paintEvent(QPaintEvent* ev)
 {
 	if (m_selRect.empty())
 		return;
@@ -79,26 +80,22 @@ void MaskBack::paintEvent(QPaintEvent * ev)
 	painter.drawImage(0, 0, img);
 
 
-	
+	// 
+	// 	QPixmap pix(size());
+	// 	pix.fill(QColor(0, 255, 0, 225));
+	// 	QPainter paintPix(&pix);
+	// 	paintPix.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+	// 	paintPix.fillRect(m_selRect, QColor(255, 0, 0, 225));
+	// 	paintPix.end();
+	// 
+	// 	QPainter painter(this);
+	// 	painter.drawPixmap(0, 0, pix);
 
 
-
-// 
-// 	QPixmap pix(size());
-// 	pix.fill(QColor(0, 255, 0, 225));
-// 	QPainter paintPix(&pix);
-// 	paintPix.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-// 	paintPix.fillRect(m_selRect, QColor(255, 0, 0, 225));
-// 	paintPix.end();
-// 
-// 	QPainter painter(this);
-// 	painter.drawPixmap(0, 0, pix);
-
-
-// 	QPainter painter(this);
-// 	painter.fillRect(rect(), QColor(0, 0, 255, 225));
-// 	painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-// 	
-// 	painter.fillRect(m_selRect, QColor(0, 255, 0, 225));
+	// 	QPainter painter(this);
+	// 	painter.fillRect(rect(), QColor(0, 0, 255, 225));
+	// 	painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
+	// 	
+	// 	painter.fillRect(m_selRect, QColor(0, 255, 0, 225));
 	__super::paintEvent(ev);
 }

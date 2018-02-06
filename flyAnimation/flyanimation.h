@@ -9,11 +9,11 @@ class flyAnimation : public QMainWindow
 	Q_OBJECT
 
 public:
-	flyAnimation(QWidget *parent = 0);
+	flyAnimation(QWidget* parent = nullptr);
 	~flyAnimation();
 
 private:
-	virtual void keyPressEvent(QKeyEvent *ev) override;
+	void keyPressEvent(QKeyEvent* ev) override;
 	Ui::flyAnimationClass ui;
 };
 

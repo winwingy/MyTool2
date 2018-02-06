@@ -2,7 +2,7 @@
 #include "flyanimation.h"
 #include "FlyRotateAnimation.h"
 
-flyAnimation::flyAnimation(QWidget *parent)
+flyAnimation::flyAnimation(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -10,10 +10,9 @@ flyAnimation::flyAnimation(QWidget *parent)
 
 flyAnimation::~flyAnimation()
 {
-
 }
 
-void flyAnimation::keyPressEvent(QKeyEvent *ev)
+void flyAnimation::keyPressEvent(QKeyEvent* ev)
 {
 	switch (ev->key())
 	{
