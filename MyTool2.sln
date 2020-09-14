@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test5", "test5\test5.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XsCodeCheck", "XsCodeCheck\XsCodeCheck.vcxproj", "{36403346-8C49-4682-879A-E8A6DABC2682}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "brightness", "brightness\brightness.vcxproj", "{3A09721F-3D2E-4714-987F-29EE5B259BA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -67,6 +69,10 @@ Global
 		{36403346-8C49-4682-879A-E8A6DABC2682}.Debug|Win32.Build.0 = Debug|Win32
 		{36403346-8C49-4682-879A-E8A6DABC2682}.Release|Win32.ActiveCfg = Release|Win32
 		{36403346-8C49-4682-879A-E8A6DABC2682}.Release|Win32.Build.0 = Release|Win32
+		{3A09721F-3D2E-4714-987F-29EE5B259BA0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3A09721F-3D2E-4714-987F-29EE5B259BA0}.Debug|Win32.Build.0 = Debug|Win32
+		{3A09721F-3D2E-4714-987F-29EE5B259BA0}.Release|Win32.ActiveCfg = Release|Win32
+		{3A09721F-3D2E-4714-987F-29EE5B259BA0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
